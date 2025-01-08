@@ -1,5 +1,7 @@
+"use client";
+
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Home() {
     // Список изображений и фраз
@@ -28,53 +30,97 @@ export default function Home() {
     ];
 
     // Состояние для случайных значений
-    const [randomIndex, setRandomIndex] = useState(0);
+    const [randomIndex, setRandomIndex] = useState(null);
 
-    useEffect(() => {
-        // Генерация случайного индекса при загрузке страницы
+    const handleRandomize = () => {
         const index = Math.floor(Math.random() * images.length);
         setRandomIndex(index);
-    }, []);
+    };
 
-    const selectedImage = images[randomIndex];
-    const selectedPhrase = phrases[randomIndex];
+    const selectedImage = randomIndex !== null ? images[randomIndex] : null;
+    const selectedPhrase = randomIndex !== null ? phrases[randomIndex] : null;
 
-    const shareText = `Today, I am in Monad: "${selectedPhrase}".`;
+    const shareText = selectedPhrase
+        ? `Today, I am in Monad: "${selectedPhrase}".`
+        : "";
 
     return (
-        <div style={{ textAlign: "center", padding: "20px" }}>
+        <div
+            style={{
+                textAlign: "center",
+                padding: "20px",
+                backgroundColor: "#836EF9", // Фиолетовый фон
+                color: "#FFFFFF", // Белый текст
+                minHeight: "100vh", // Высота экрана
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
             <Head>
                 <title>Monad Randomizer</title>
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Monad Randomizer" />
-                <meta name="twitter:description" content={shareText} />
-                <meta name="twitter:image" content={`https://monad-randomizer.vercel.app${selectedImage}`} />
-                <meta name="og:title" content="Monad Randomizer" />
-                <meta name="og:description" content={shareText} />
-                <meta name="og:image" content={`https://monad-randomizer.vercel.app${selectedImage}`} />
+                {selectedImage && (
+                    <>
+                        <meta name="twitter:card" content="summary_large_image" />
+                        <meta name="twitter:title" content="Monad Randomizer" />
+                        <meta name="twitter:description" content={shareText} />
+                        <meta name="twitter:image" content={`https://monad-randomizer.vercel.app${selectedImage}`} />
+                        <meta name="og:title" content="Monad Randomizer" />
+                        <meta name="og:description" content={shareText} />
+                        <meta name="og:image" content={`https://monad-randomizer.vercel.app${selectedImage}`} />
+                    </>
+                )}
             </Head>
-            <h1>Who are you today in Monad?</h1>
-            <img src={selectedImage} alt="Monad" style={{ maxWidth: "300px", borderRadius: "10px" }} />
-            <p>{selectedPhrase}</p>
-            <a
-                href={`https://x.com/intent/tweet?text=${encodeURIComponent(
-                    shareText
-                )}&url=https://monad-randomizer.vercel.app&hashtags=Monad`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                    display: "inline-block",
-                    padding: "10px 20px",
-                    marginTop: "20px",
-                    backgroundColor: "#836EF9",
-                    color: "#FFFFFF",
-                    borderRadius: "5px",
-                    textDecoration: "none",
-                    fontWeight: "bold",
-                }}
-            >
-                Share on X
-            </a>
+            <h1 style={{ fontSize: "32px", fontWeight: "bold" }}>Who are you today in Monad?</h1>
+            {selectedImage ? (
+                <>
+                    <img src={selectedImage} alt="Monad" style={{ maxWidth: "300px", borderRadius: "10px", marginTop: "20px" }} />
+                    <p style={{ fontSize: "20px", marginTop: "10px" }}>{selectedPhrase}</p>
+                    <a
+                        href={`https://x.com/intent/tweet?text=${encodeURIComponent(
+                            shareText
+                        )}&url=https://monad-randomizer.vercel.app&hashtags=Monad`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            display: "inline-block",
+                            padding: "10px 20px",
+                            marginTop: "20px",
+                            backgroundColor: "#FFFFFF",
+                            color: "#836EF9",
+                            borderRadius: "5px",
+                            textDecoration: "none",
+                            fontWeight: "bold",
+                            fontSize: "16px",
+                        }}
+                    >
+                        Share on X
+                    </a>
+                </>
+            ) : (
+                <>
+                    <button
+                        onClick={handleRandomize}
+                        style={{
+                            padding: "10px 20px",
+                            backgroundColor: "#FFFFFF",
+                            color: "#836EF9",
+                            borderRadius: "5px",
+                            border: "none",
+                            fontSize: "18px",
+                            fontWeight: "bold",
+                            cursor: "pointer",
+                            marginTop: "20px",
+                        }}
+                    >
+                        Randomize
+                    </button>
+                    <p style={{ marginTop: "50px", fontSize: "16px" }}>
+                        Created by Annad with love for the Monad community
+                    </p>
+                </>
+            )}
         </div>
     );
 }
