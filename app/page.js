@@ -1,9 +1,7 @@
 import Head from "next/head";
 
-// Список изображений
+// Список изображений и фраз
 const images = Array.from({ length: 20 }, (_, i) => `/images/image${i + 1}.jpg`);
-
-// Список фраз
 const phrases = [
     "You are a leader of ideas today!",
     "A day for peace and reflection.",
@@ -27,21 +25,12 @@ const phrases = [
     "Celebrate your uniqueness today!"
 ];
 
-// Генерация случайной картинки и фразы на сервере
-export async function getServerSideProps() {
+export default function Home() {
+    // Генерация случайного индекса
     const randomIndex = Math.floor(Math.random() * images.length);
     const selectedImage = images[randomIndex];
     const selectedPhrase = phrases[randomIndex];
 
-    return {
-        props: {
-            selectedImage,
-            selectedPhrase,
-        },
-    };
-}
-
-export default function Home({ selectedImage, selectedPhrase }) {
     const shareText = `Today, I am in Monad: "${selectedPhrase}".`;
 
     return (
