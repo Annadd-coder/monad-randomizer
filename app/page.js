@@ -9,7 +9,7 @@ export default function Home() {
     const phrases = [
         "You are a leader of ideas today!",
         "A day for peace and reflection.",
-        "Your potential is at its peak today.",
+        "Your potential is at its peak today!",
         "Today, you inspire everyone around you.",
         "Be yourself and brighten the world!",
         "Every step today leads to success.",
@@ -26,7 +26,7 @@ export default function Home() {
         "Your energy today is truly magnetic.",
         "Lead by example and inspire others.",
         "A day for bold decisions and actions.",
-        "Celebrate your uniqueness today!"
+        "Celebrate your uniqueness today!",
     ];
 
     // Состояние для случайных значений
@@ -72,9 +72,9 @@ export default function Home() {
                     </>
                 )}
             </Head>
-            <h1 style={{ fontSize: "32px", fontWeight: "bold" }}>Who are you today in Monad?</h1>
             {selectedImage ? (
                 <>
+                    <h1 style={{ fontSize: "32px", fontWeight: "bold" }}>Your day in Monad today:</h1>
                     <img src={selectedImage} alt="Monad" style={{ maxWidth: "300px", borderRadius: "10px", marginTop: "20px" }} />
                     <p style={{ fontSize: "20px", marginTop: "10px" }}>{selectedPhrase}</p>
                     <a
@@ -100,6 +100,7 @@ export default function Home() {
                 </>
             ) : (
                 <>
+                    <h1 style={{ fontSize: "32px", fontWeight: "bold" }}>Who are you today in Monad?</h1>
                     <button
                         onClick={handleRandomize}
                         style={{
@@ -114,7 +115,7 @@ export default function Home() {
                             marginTop: "20px",
                         }}
                     >
-                        Randomize
+                        Click Here
                     </button>
                     <p style={{ marginTop: "50px", fontSize: "16px" }}>
                         Created by Annad with love for the Monad community
