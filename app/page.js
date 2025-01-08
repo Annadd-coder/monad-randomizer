@@ -1,33 +1,41 @@
 import Head from "next/head";
-
-// Список изображений и фраз
-const images = Array.from({ length: 20 }, (_, i) => `/images/image${i + 1}.jpg`);
-const phrases = [
-    "You are a leader of ideas today!",
-    "A day for peace and reflection.",
-    "Your potential is at its peak today.",
-    "Today, you inspire everyone around you.",
-    "Be yourself and brighten the world!",
-    "Every step today leads to success.",
-    "Perfect day for new ideas!",
-    "You are a shining star in this world.",
-    "Your positivity is contagious today!",
-    "Stay confident: you're on the right path.",
-    "Today, your creativity knows no bounds.",
-    "You are unstoppable today!",
-    "A great day to achieve your dreams.",
-    "Share your wisdom with the world today.",
-    "Focus and conquer challenges today.",
-    "You are the architect of your success.",
-    "Your energy today is truly magnetic.",
-    "Lead by example and inspire others.",
-    "A day for bold decisions and actions.",
-    "Celebrate your uniqueness today!"
-];
+import { useEffect, useState } from "react";
 
 export default function Home() {
-    // Генерация случайного индекса
-    const randomIndex = Math.floor(Math.random() * images.length);
+    // Список изображений и фраз
+    const images = Array.from({ length: 20 }, (_, i) => `/images/image${i + 1}.jpg`);
+    const phrases = [
+        "You are a leader of ideas today!",
+        "A day for peace and reflection.",
+        "Your potential is at its peak today.",
+        "Today, you inspire everyone around you.",
+        "Be yourself and brighten the world!",
+        "Every step today leads to success.",
+        "Perfect day for new ideas!",
+        "You are a shining star in this world.",
+        "Your positivity is contagious today!",
+        "Stay confident: you're on the right path.",
+        "Today, your creativity knows no bounds.",
+        "You are unstoppable today!",
+        "A great day to achieve your dreams.",
+        "Share your wisdom with the world today.",
+        "Focus and conquer challenges today.",
+        "You are the architect of your success.",
+        "Your energy today is truly magnetic.",
+        "Lead by example and inspire others.",
+        "A day for bold decisions and actions.",
+        "Celebrate your uniqueness today!"
+    ];
+
+    // Состояние для случайных значений
+    const [randomIndex, setRandomIndex] = useState(0);
+
+    useEffect(() => {
+        // Генерация случайного индекса при загрузке страницы
+        const index = Math.floor(Math.random() * images.length);
+        setRandomIndex(index);
+    }, []);
+
     const selectedImage = images[randomIndex];
     const selectedPhrase = phrases[randomIndex];
 
